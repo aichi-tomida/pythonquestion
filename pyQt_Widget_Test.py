@@ -126,10 +126,11 @@ class TableView(QTableWidget):
           # https://tm8r.hateblo.jp/entry/2017/12/14/000000
           chkbox = QCheckBox(self)
           chkbox.setText('対象')
-          # print('chkbox.checkState before', chkbox.checkState(), sep='\t')
+          # こちらの checkState は上手く取得できている（次も含む）
+          print('chkbox.checkState before', chkbox.checkState(), sep='\t')
           chkbox.setObjectName(f"checkBox_{r}")
           chkbox.setChecked(True) # チェックボックスの値のセット(チェック状態にする)
-          # print('chkbox.checkState after', chkbox.checkState(), sep='\t')
+          print('chkbox.checkState after', chkbox.checkState(), sep='\t')
           self.setCellWidget(r, 0, chkbox)
           item = self.item(r, 6)
 
@@ -191,7 +192,12 @@ class window(QWidget):
     intcheck = 0
 
     for r in range(0,rowPosition):
-        # 不具合？の箇所
+
+        # 解決対策 1 → 解消せず　
+        # chkbox = QCheckBox(self)
+        # print('chkbox.checkState', chkbox.checkState(), sep='\t')
+
+        # 不具合？の箇所=エラーとはならず、チェック時は 2 になるはずだが 2にならない
         item = self.table.item(r, 0)
         print('チェック状態', item.text(),sep='\t')
         print('チェック状態', item.checkState(),sep='\t')
